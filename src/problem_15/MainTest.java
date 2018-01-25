@@ -7,45 +7,50 @@ import java.util.List;
 public class MainTest {
 
 	public static void main(String[] args) {
-		int[] nums = {-1, 0, 1, 2, -1, -4};
+	//	int[] nums = {-1, 0, 1, 2, -1, -4};
+		int[] nums = {-2, 0, 1, 1, 2}; 
+	//	int[] nums = {-1, -1, -1, 1};
 		List<List<Integer>> res = new MainTest().threeSum(nums);
 		System.out.println(res);
 	}
 	
 	public List<List<Integer>> threeSum(int[] nums) {
-		List<List<Integer>> res = new ArrayList<List<Integer>>();
-		List<Integer> tmp = new ArrayList<Integer>();
+		int cnt = 0;
+		//排序
 		Arrays.sort(nums);
-		dfs(res, tmp, nums, 0, 0, 0);
-		return res;
-	}
-	public static void dfs(List<List<Integer>> res, List<Integer> tmp, int[] nums, int start, int cnt, int num) {
-//		System.out.println(tmp);
-		if(cnt == 3) {
-			if(num == 0)
-				res.add(new ArrayList<Integer>(tmp));
-			return;
-		}
-		else {
-			for(int i = start; i < nums.length; i++) {
-				//去重
-				if(i > start && nums[i] == nums[i - 1]) {
-					continue;
+		int low = 0, high = 0, length = nums.length;
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		for(int i = 0; i < length - 2; i++) {
+			//因为不能有重复结果，如果第一个数值相同，剪枝
+			if(i != 0 && nums[i] == nums[i - 1]) {
+				continue;
+			}
+			for(low = i + 1, high = length - 1; low < high; ) {
+				cnt = nums[low] + nums[high] + nums[i];
+				if(cnt > 0) {
+					high--;
 				}
-				//剪枝
-				if(num + nums[i] > 0) {
-					break;
+				else if(cnt < 0) {
+					low++;
 				}
-				if(cnt == 2) {
-					if(num + nums[i] < 0) {
-						continue;
+				else {
+					List<Integer> listIn = new ArrayList<Integer>();
+					listIn.add(nums[i]);
+					listIn.add(nums[low]);
+					listIn.add(nums[high]);
+					res.add(listIn);
+					//剪枝，跳过重复数值
+					while(low < high && nums[low] == nums[low + 1]) {
+						low++;
 					}
+					while(low < high && nums[high] == nums[high - 1]) {
+						high--;
+					}
+					low++;
+					high--;
 				}
-				
-				tmp.add(nums[i]);
-				dfs(res, tmp, nums, i + 1, cnt + 1, num + nums[i]);
-				tmp.remove(tmp.size() - 1);
 			}
 		}
+		return res;
 	}
 }

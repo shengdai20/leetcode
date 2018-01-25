@@ -13,6 +13,25 @@ public class MainTest {
 	
 	public List<List<Integer>> combine(int n, int k) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		List<Integer> tmp = new ArrayList<Integer>();
+		dfs(res, tmp, n, k, 1);
+		return res;
+	}
+	public static void dfs(List<List<Integer>> res, List<Integer> tmp, int n, int k, int start) {
+		if(tmp.size() == k) {
+			res.add(new ArrayList<Integer>(tmp));
+			return;
+		}
+		for(int i = start; i <= (n - (k - tmp.size()) + 1); i++) {
+			//i <= (n - (k - tmp.size()) + 1)剪枝，当可选的数已经不够时，直接剪枝
+			tmp.add(i);
+			dfs(res, tmp, n, k, i + 1);
+			tmp.remove(tmp.size() - 1);//回溯删除
+		}
+	}
+	
+/*	public List<List<Integer>> combine(int n, int k) {
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		res.add(new ArrayList<Integer>());
 		for(int i = 1; i <= n; i++) {
 			List<List<Integer>> tmp = new ArrayList<List<Integer>>();
@@ -31,7 +50,7 @@ public class MainTest {
 			}
 		}
 		return list;
-	}
+	}*/
 	
 /*	public List<List<Integer>> combine(int n, int k) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
