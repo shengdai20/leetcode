@@ -29,11 +29,15 @@ public class MainTest {
 		return max;*/
 		int min = Integer.MAX_VALUE;
 		int res = 0;
+		//第i天的价格可以看作买入价，也可以看作卖出价
 		for(int i = 0; i < prices.length; i++) {
+			//找到更低的买入价
 			if(prices[i] < min) {
+				//更新买入价
 				min = prices[i];
 			}
 			else if(prices[i] - min > res){
+				//更新利润
 				res = prices[i] - min;
 			}
 		}

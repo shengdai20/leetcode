@@ -19,14 +19,15 @@ public class MainTest {
 		TreeNode tmp = root;
 		List<Integer> list = new ArrayList<Integer>();
 		while(tmp != null || !stack.isEmpty()) {
+			//将所有左孩子压栈，直到没有左孩子，并且由于是先序遍历，所以在压左孩子的时候就放入结果list中
 			while(tmp != null) {
 				list.add(tmp.val);
 				stack.push(tmp);
 				tmp = tmp.left;
 			}
+			//如果左孩子压完了，就访问右孩子
 			if(!stack.isEmpty()) {
-				tmp = stack.peek();
-				stack.pop();
+				tmp = stack.pop();
 				tmp = tmp.right;
 			}
 		}

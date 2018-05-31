@@ -8,6 +8,7 @@ public class Main {
 		System.out.println(res);
 	}
 	
+	//dp
 	public int longestValidParentheses(String s) {
 		int length = s.length();
 		int[] dp = new int[length];
@@ -15,16 +16,16 @@ public class Main {
 		for(int i = 0; i < length; i++) {
 			dp[i] = 0;
 			if(s.charAt(i) == ')' && (i - 1) >= 0) {
-				if((i - 1) >= 0 && s.charAt(i - 1) == '(') {
-					dp[i] = 2;
-					if(i - 2 >= 0) {
+				if((i - 1) >= 0 && s.charAt(i - 1) == '(') {//如果前一个位置与当前括号')'匹配
+					dp[i] = 2;//暂且只计算匹配的'('')'
+					if(i - 2 >= 0) {//加上与')'匹配的'('前一个位置的dp匹配长度
 						dp[i] += dp[i - 2];
 					}
 				}
-				else {
-					if((i - 1 - dp[i - 1]) >= 0 && s.charAt(i - 1 - dp[i - 1]) == '(') {
-						dp[i] = dp[i - 1] + 2;
-						if(i - 2 - dp[i - 1] >= 0) {
+				else {//如果前一个位置与当前括号'('不匹配
+					if((i - 1 - dp[i - 1]) >= 0 && s.charAt(i - 1 - dp[i - 1]) == '(') {//查看【前一个位置下标-匹配数】之后的字符与当前括号')'是否匹配
+						dp[i] = dp[i - 1] + 2;//如果匹配，则在前一个位置匹配数的情况下+2，即加上刚与当前')'匹配的左右括号数量
+						if(i - 2 - dp[i - 1] >= 0) {//加上与')'匹配的'('前一个位置的dp匹配长度
 							dp[i] += dp[i - 2 - dp[i - 1]];
 						}
 					}

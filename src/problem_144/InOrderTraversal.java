@@ -22,10 +22,10 @@ public class InOrderTraversal {
 				stack.push(tmp);
 				tmp = tmp.left;
 			}
+			//与先序不同的是，在弹出时放入结果list
 			if(!stack.isEmpty()) {
-				tmp = stack.peek();
+				tmp = stack.pop();
 				list.add(tmp.val);
-				stack.pop();
 				tmp = tmp.right;
 			}
 		}

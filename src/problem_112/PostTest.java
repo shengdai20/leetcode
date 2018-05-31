@@ -27,6 +27,7 @@ public class PostTest {
 				cur = cur.left;
 			}
 			cur = stack.peek();
+			//判断是否满足sum
 			if(cur.left == null && cur.right == null && cnt == sum) {
 				return true;
 			}
@@ -34,6 +35,7 @@ public class PostTest {
 				cur = cur.right;
 			}
 			else {
+				//弹出减cnt
 				cnt -= cur.val;
 				stack.pop();
 				pre = cur;

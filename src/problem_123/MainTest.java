@@ -11,36 +11,6 @@ public class MainTest {
 	}
 	
 	public int maxProfit(int[] prices) {
-/*		int res = 0;
-		for(int i = 0; i < prices.length; i++) {
-			int maxPre = 0;
-			int min = Integer.MAX_VALUE;
-			//0 to i-1
-			for(int j = 0; j < i; j++) {
-				if(prices[j] < min) {
-					min = prices[j];
-				}
-				else if(prices[j] - min > maxPre){
-					maxPre = prices[j] - min;
-				}
-			}
-			//i to n-1
-			int maxPost = 0;
-			min = Integer.MAX_VALUE;
-			for(int j = i; j < prices.length; j++) {
-				if(prices[j] < min) {
-					min = prices[j];
-				}
-				else if(prices[j] - min > maxPost){
-					maxPost = prices[j] - min;
-				}
-			}
-			
-			if(maxPre + maxPost > res) {
-				res = maxPre + maxPost;
-			}
-		}
-		return res;*/
 		int length = prices.length;
 		int[] preProfit = new int[length];
 		int[] postProfit = new int[length];
