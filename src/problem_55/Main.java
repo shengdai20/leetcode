@@ -15,40 +15,30 @@ public class Main {
 		System.out.println(res);
 	}
 	
+	
 	public boolean canJump(int[] nums) {
-		int length = nums.length, pos = 0;
-		if(length == 1) {
-			return true;
-		}
-		int[] mark = new int[length];
-		for(int i = 0; i < length; i++) {
-			mark[i] = 0;
-		}
-		for(int i = 0; i < length; ) {
-			pos += nums[i];
-			mark[i] = 1;
-			while(((pos >= length) || (pos == i) || (pos > 0 && nums[pos] == 0))) {
-				if(pos == length - 1) {
-					break;
-				}
-				pos--;
-		//		System.out.println(i + "," + pos);
-			}
-			if(pos >= length - 1 || pos < 0) {
+		int ma = 0;
+		for(int i = 0; i < nums.length; i++) {
+			//如果最远距离小于当前位置，表示当前位置不可达
+			if(i > ma || ma >= nums.length - 1) {
 				break;
 			}
-			if(mark[pos] == 1) {
-				i--;
-				if(mark[i] == 1) {
-					break;
-				}
-				continue;
-			}
-			i = pos;
+			//更新最远距离
+			ma = Math.max(ma, i + nums[i]);
 		}
-		if(pos == length - 1) {
-			return true;
-		}
-		return false;
+		return ma >= nums.length - 1;
 	}
+	
+/*	public boolean canJump(int[] nums) {
+		//dp[i]表示从上一个位置走到当前位置i时，还剩余的可往前走的步数是多少
+		int[] dp = new int[nums.length];
+		//dp[i] = max(dp[i- 1], nums[i - 1]) - 1
+		for(int i = 1; i < nums.length; i++) {
+			dp[i] = Math.max(dp[i - 1], nums[i - 1]) - 1;
+			if(dp[i] < 0) {
+				return false;
+			}
+		}
+		return true;
+	}*/
 }
